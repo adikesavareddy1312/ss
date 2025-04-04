@@ -1,0 +1,180 @@
+1. Implement and demonstrate the FIND-S algorithm for finding the most specific
+hypothesis based on a given set of training data samples. Read the training data from a
+.CSV file.
+Find-s Algorithm :
+1. Load Data set
+2. Initialize h to the most specific hypothesis in H
+3. For each positive training instance x
+• For each attribute constraint ai in h
+If the constraint ai in h is satisfied by x then do nothing
+else replace ai in h by the next more general constraint that is satisfied by x
+4. Output hypothesis h
+Source Code:
+import random
+import csv
+def read_data(filename):
+with open(filename, T') as csvfile:
+datareader = csv.reader(csvfile, delimiter=,)
+traindata = |]
+for row in datareader:
+traindata.append row)
+return (traindata)
+h=[phi, 'phi','phi', 'phi','phi', 'phi'
+data=read_data('finds.csv')
+def isConsistent(h,d):
+if len(h)!=|en(d)-1: print('Number of attributes are not same in hypothesis.')
+return False
+matched=0
+for i in range(len(h)): if ((h[i]==d[i]) | (h[i]=='any') ):
+matched=matched+1
+if matched ==len(h): return True
+else:
+return False
+def makeConsistent(h,d):
+for i in range(len(h)):
+if((h[i] == 'phi')):
+h[|=df]
+elif(h(i]!=d(]):
+h[i]='any'
+return h
+print('Begin : Hypothesis :,h)
+print(==== for d in data:
+if d[len(d)-1]=='Yes': if (isConsistent(h,d)):
+pass
+else:
+h=makeConsistenth,d)
+print (Training data ?,d),
+print (Updated Hypothesis ?,h)
+print)
+print'.
+print(*=
+print(maximally sepcific data set End: Hypothesis :,h)
+Output:
+Begin : Hypothesis : ['phi', 'phi', 'phi', 'phi', 'phi', 'phi"]
+Training data ['Cloudy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'Yes']
+Updated Hypothesis : ['Cloudy', 'Cold', 'High', 'Strong', 'Warm', 'Change']
+Training data ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'Yes']
+Updated Hypothesis ['any', 'any', 'any', 'Strong', 'Warm', 'any']
+Training data
+: ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'Yes']
+Updated Hypothesis : ['any', 'any', 'any', 'Strong', 'Warm', 'any']
+Training data : ['Sunny', 'Warm', 'High',' 'Strong', 'Cool', 'Change', 'Yes']
+Updated Hypothesis : ['any', 'any', 'any', 'Strong', 'any', 'any']
+Training data
+U p d a t e d H y p o t h e s i s a n y a n y a n y , S r o n e , a n y , a n y m ; S a m e , Y e s )
+maximally sepcific data set End: Hypothesis : ['any', 'any', 'any', 'Strong', 'any', 'any']
+OR
+import csv
+def loadCsv(filename):
+lines =
+cs.readeropen(filena
+me, "r")) dataset =
+list(lines) for i in
+range(le
+n(datase
+t)):
+dataset[i
+]=
+dataset[i
+return dataset
+a t t r i b u t e s =
+['Sky', Temp', 'Humidity', Wind', Water', Forecas
+t'] print('Attributes =',attributes)
+num _attributes = len(attributes)
+Attributes = ['Sky', 'Temp', 'Humidity', 'Wind', 'Water', 'Forecast]
+[['sky', 'Airtemp', 'Humidity', 'Wind', 'Water', 'Forecast', 'WaterSport],
+(Slowy You, High, Strong; Col, Change, Yos,
+l'Overcast', 'Cool', 'Normal', 'Strong',
+"Warm', Same', "Yes' Intial Hypothesis
+'O', 'O', 'O', 'O', '']
+The Hypothesis are
+2= ['Cloudy', 'Cold', 'High', 'Strong', 'Warm', 'Change']
+3= ["?', '?', '?', 'Strong', 'Warm', "?']
+4= ['?', "?', "?', 'Strong', 'Warm', '?']
+6= [?, "?', "?', 'Strong', "?', '?']
+9=["?', '?', "?', 'Strong', '?',"?"]
+Final Hypothesis
+['?', '?', '?', 'Strong', '?', "?']
+ML. L a b Manual 6 C S 4 - 2 2
+2. For a given set of training data examples stored in a CSV file, implement and
+demonstrate the Candidate-Elimination algorithm to output a description of the set of all
+hypotheses consistent with the training examples.
+Candidate-Elimination Algorithm:
+1. Load data set 2.4<-maximally general hypotheses in H
+3.5<- maximally specific hypotheses in H
+4. For each training example
+d=<x,c(x)› Case 1 : If d is a
+positive example
+Remove from G any hypothesis that is
+inconsistent with d For each hypothesis s in S
+that is not consistent with d
+• R e m o v e s f r o m S.
+• Add to S all minimal generalizations h of s such that
+• h consistent with d
+• Some member of G is more general than h
+• Remove from s any hypothesis that is more general than another
+hypothesis in S
+Case 2: If d is a negative example
+Remove from s any hypothesis that is
+inconsistent with d For each hypothesis g in G
+t h a t is not consistent with d
+*Remove 9 from G.
+*Add to G all minimal specializations h of g such that
+o h consistent with d
+o Some member of S is more specific than h
+• Remove from G any hypothesis that is less general than another
+hypothesis in G
+Source Code:
+import numpy as np
+Dept. of CSE, BIET Paae
+ML Lab Manual
+import pandas as pd
+data = pd.DataFrame(data=pd.read_csv('finds1.csv'))=
+concepts = np.array(data.iloc[:,0:-1])
+target = np.array(data.iloc[,-1])
+def learn(concepts, target):
+specific_h = concepts[0].copy0
+print("initialization of specific_h and general_h")
+print(specific_h)
+general_h = [["?" for i in range(len(specific_h))] for i in range(len(specific_h))]
+print(general_h)
+for i, h in enumerate(concepts):
+if target[i] == "Yes":
+for x in range(len(specific_h)): ifh[x] != specific_h[x]:
+specific_h[x]= "?'
+6 C
+Dept. of CSE, BIET Paae
+ML Lab Manual
+general _h[x][ × ]= "?'
+if target[i] = "No":
+for x in range(len(specific_h)):
+if h[x] != specific_h[x]:
+general_h[x][x] = specific_h[x]
+else: general_h[x][×]= "?'
+print(" steps of Candidate Elimination Algorithm",i+1)
+print("Specific_h ",i+1, "\n ")
+print(specific_h)
+print("general_h ", i+1, "n")
+print(general_h)
+indices = [i for i, val in enumerate(general_h) if val == ["?', "?', '?', "?', "?', "?']]
+for i in indices:
+general_h.remove(["?', "?', "?', "?', "?', '?'])
+return specific_h, general _h
+s_final, g_final = learn(concepts, target)
+print("Final Specific_h:", s_final, sep="n")
+print("Final General _h:", g_final, sep="\n")
+6CS4-22
+initialization of specific_h and general _h
+['Cloudy' 'Cold' 'High' 'Strong' 'Warm' 'Change']
+['?, "?,?',?, "?, "?),l?,?',?,"?,"?, "?),[?',?,"?,"?,"?', ?),[?','?,"?',"?',"?',"?],[?',"?,"?',
+?', "?', "?'], ["?', '?', '?', "?', "?', "?']]
+steps of Candidate Elimination Algorithm 8
+Specific _h 8
+["?' "?' "?' 'Strong' "?' "?']
+general_h 8
+["?', "?', "?', "?', "?', "?"], ['?', "?', "?', "?', "?', "?'], ["?', "?', "?', "?', "?', "?'], ['?', "?', "?', 'Strong', "?', "?'], ["?',
+"?', "?', "?', "?', "?'], ['?', "?', "?', "?', "?', "?']]
+Final Specific_h:
+["?' "?' "?' "Strong' "?' "?']
+Final General_h:
+[['"?', "?', "?', 'Strong', "?', "?']]
